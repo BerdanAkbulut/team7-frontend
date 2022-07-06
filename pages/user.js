@@ -32,14 +32,14 @@ function User() {
 
   const connect = async () => {
     let response = await fetch(
-      `http://88.245.19.100:443/api/rooms/get-room-by-id/${userData.roomId}` /*  `${
+      `https://88.245.19.100:443/api/rooms/get-room-by-id/${userData.roomId}` /*  `${
         process.env.PROJECT_URL || 'http://localhost:8080'
       }/api/rooms/get-room-by-id/${userData.roomId}`    */
     );
     let data = await response.json();
     if (response.status === 200) {
       let addParticipantResponse = await fetch(
-        `http://88.245.19.100:443/api/participants/add-participant`, //        `http://${process.env.PROJECT_URL}/api/participants/add-participant`,
+        `https://88.245.19.100:443/api/participants/add-participant`, //        `http://${process.env.PROJECT_URL}/api/participants/add-participant`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ function User() {
       };
 
       let response = await fetch(
-        `http://88.245.19.100:443/api/questions/addMessage/${userData.roomId}`,
+        `https://88.245.19.100:443/api/questions/addMessage/${userData.roomId}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -96,7 +96,7 @@ function User() {
 
   const fetchData = async () => {
     let response = await fetch(
-      `http://88.245.19.100:443/api/questions/get-questions-by-room-id/${userData.roomId}` //http://${process.env.PROJECT_URL}/api/questions/get-questions-by-room-id/${userData.roomId}
+      `https://88.245.19.100:443/api/questions/get-questions-by-room-id/${userData.roomId}` //http://${process.env.PROJECT_URL}/api/questions/get-questions-by-room-id/${userData.roomId}
     );
     let data = await response.json();
     setQuestions(data);
@@ -140,7 +140,7 @@ function User() {
     // console.log('participant',participantId);
     //console.log('question',questionId)
     let response = await fetch(
-      `http://88.245.19.100:443/api/questions/vote-question/${userData.participantId}/${questionId}`
+      `https://88.245.19.100:443/api/questions/vote-question/${userData.participantId}/${questionId}`
     );
     let data = await response.json();
     console.log(data);
