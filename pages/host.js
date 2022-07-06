@@ -25,9 +25,7 @@ function Host() {
     console.log(userData.name);
 
     let responseAddPresenter = await fetch(
-      `${
-        process.env.PROJECT_URL || 'http://localhost:8080'
-      }/api/presenters/add-presenter`,
+      `http://88.245.19.100:8080/api/presenters/add-presenter`,
 
       {
         method: 'POST',
@@ -38,9 +36,7 @@ function Host() {
     let dataAddPresenter = await responseAddPresenter.json();
 
     let responseAddRoom = await fetch(
-      `${
-        process.env.PROJECT_URL || 'http://localhost:8080'
-      }/api/rooms/add-room`,
+      `http://88.245.19.100:8080/api/rooms/add-room`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -58,9 +54,7 @@ function Host() {
 
   const fetchData = async () => {
     let response = await fetch(
-      `   ${
-        process.env.PROJECT_URL || 'http://localhost:8080'
-      }/api/questions/get-questions-by-room-id/${userData.roomId}`
+      `http://88.245.19.100:8080/api/questions/get-questions-by-room-id/${userData.roomId}`
     );
     let data = await response.json();
 
@@ -95,9 +89,7 @@ function Host() {
 
   const handleAnswer = async (questionId) => {
     let response = await fetch(
-      `${
-        process.env.PROJECT_URL || 'http://localhost:8080'
-      }/api/questions/set-answer/${questionId}`
+      `http://88.245.19.100:8080/api/questions/set-answer/${questionId}`
     );
   };
 
