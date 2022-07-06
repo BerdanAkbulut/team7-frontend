@@ -257,12 +257,12 @@ function User() {
                   </span>
                 )}
               </div>
-              <button
+              {/* <button
                 onClick={() => router.push(`/user/${userData.participantId}`)}
                 className="text-black sm:p-[2px] lg:p-2 rounded-md bg-orange-400 transition-all ease-in-out duration-500 hover:bg-amber-700 hover:text-white"
               >
                 My Feedbacks
-              </button>
+              </button> */}
             </div>
           </div>
 
