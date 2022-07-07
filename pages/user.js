@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SockJS from 'sockjs-client';
-import { over } from 'stompjs';
 import styles from '../styles/User.module.css';
 import Head from 'next/head';
 import TextField from '@mui/material/TextField';
@@ -112,7 +110,6 @@ function User() {
     return () => clearInterval(interval);
   });
 
- 
   const handleCopy = () => {
     setShowCopyMessage(true);
     navigator.clipboard.writeText(userData.roomId);
@@ -156,7 +153,7 @@ function User() {
       </Head>
       <div className="flex absolute right-5 top-5 items-center gap-4 justify-center">
         <span className="">
-          <Back routePath='/' />
+          <Back routePath="/" />
         </span>
         <span
           onClick={handleClose}
@@ -215,7 +212,7 @@ function User() {
             <p className="sm:text-sm md:text-2xl lg:text-4xl tracking-wider text-white  animate-pulse transition-all ease-out duration-500 hover:scale-90">
               Welcome, {userData?.name}
             </p>
-            {userId && <p className="text-white text-3xl">{userId}</p>}
+            {/* {userId && <p className="text-white text-3xl">{userId}</p>} */}
             <div className="flex flex-row sm:gap-2 md:gap-4 lg:gap-10 items-center overflow-hidden">
               <p className="text-red-300 sm:tracking-tight md:tracking-wider sm:text-sm md:text-lg lg:text-2xl relative">
                 Room Id :{!showRoomId ? ' **' : userData?.roomId}
@@ -281,11 +278,11 @@ function User() {
                       </div>
                     )}
                     {question?.answered ? (
-                      <span className="ease-in-out duration-300 hover:scale-125">
+                      <span className="ease-in-out duration-300 hover:scale-125 overflow-hidden">
                         <ThumbUpIcon fontSize="large" color="success" />
                       </span>
                     ) : (
-                      <span className="ease-in-out duration-300 hover:scale-125">
+                      <span className="ease-in-out duration-300 hover:scale-125 overflow-hidden">
                         <ThumbDownIcon fontSize="large" color="secondary" />
                       </span>
                     )}
