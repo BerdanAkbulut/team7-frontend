@@ -4,7 +4,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function Password({ roomId }) {
   const [showRoomId, setShowRoomId] = useState(false);
-  console.log(roomId);
   return (
     <div className="flex flex-row gap-10">
       <p className="text-red-300 sm:tracking-tight md:tracking-wider sm:text-xl md:text-2xl relative">

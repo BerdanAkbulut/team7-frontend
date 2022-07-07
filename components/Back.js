@@ -1,10 +1,9 @@
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import { useRouter } from 'next/router';
-function Back() {
+function Back({ routePath }) {
   const router = useRouter();
   const handleBack = () => {
-    router.push('/');
- 
+    router.push(routePath);
   };
   return (
     <>

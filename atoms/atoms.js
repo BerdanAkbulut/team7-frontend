@@ -1,4 +1,4 @@
-import { atom, useRecoilState, selector } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { useState, useEffect } from 'react';
 
@@ -8,6 +8,7 @@ const { persistAtom: questionPersistAtom } = recoilPersist({
   key: 'questions',
   // this key is using to store data in local storage // configurate which stroage will be used to store the data
 });
+
 const { persistAtom: userPersistAtom } = recoilPersist({
   key: 'userPersistAtom',
 });
@@ -18,11 +19,11 @@ const hostDataStateV = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-const questionsStateV = atom({
-  key: 'questionsState',
-  default: [],
-  effects_UNSTABLE: [questionPersistAtom],
-});
+// const questionsStateV = atom({
+//   key: 'questionsState',
+//   default: [],
+//   effects_UNSTABLE: [questionPersistAtom],
+// });
 
 const userStateV = atom({
   key: 'userState',
@@ -81,4 +82,4 @@ export function useUserState() {
   return [isInitial === true ? false : userState, setUserState];
 }
 
-export { hostDataStateV, questionsStateV, userStateV };
+export { hostDataStateV, userStateV };

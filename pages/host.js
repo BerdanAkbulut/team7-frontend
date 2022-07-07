@@ -14,6 +14,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 function Host() {
+
   const resetUser = useResetRecoilState(hostDataStateV);
   const [userData, setUserData] = useHostData();
   const [showRoomId, setShowRoomId] = useState(false);
@@ -21,11 +22,9 @@ function Host() {
   const [questions, setQuestions] = useState([]);
   // const sortedQuestionsState = useRecoilValue(sortedQuestions);
 
-  const connect = async () => {
-    console.log(userData.name);
-
+  const connect = async () => { 
     let responseAddPresenter = await fetch(
-      `https://88.245.19.100:443/api/presenters/add-presenter`,
+      `http://localhost:8080/api/presenters/add-presenter`,
 
       {
         method: 'POST',
@@ -36,7 +35,7 @@ function Host() {
     let dataAddPresenter = await responseAddPresenter.json();
 
     let responseAddRoom = await fetch(
-      `https://88.245.19.100:443/api/rooms/add-room`,
+      `http://localhost:8080/api/rooms/add-room`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,20 +44,16 @@ function Host() {
     );
 
     let dataAddRoom = await responseAddRoom.json();
-
     // console.log('presenter', dataAddPresenter);
-    console.log('room', dataAddRoom);
-
     setUserData({ ...userData, roomId: dataAddRoom.id, connected: true });
   };
 
   const fetchData = async () => {
     let response = await fetch(
-      `https://88.245.19.100:443/api/questions/get-questions-by-room-id/${userData.roomId}`
+      `http://localhost:8080/api/questions/get-questions-by-room-id/${userData.roomId}`
     );
     let data = await response.json();
 
-    console.log(data);
     setQuestions(data);
   };
 
@@ -66,12 +61,12 @@ function Host() {
     const interval = setInterval(() => {
       if (userData.connected) {
         fetchData();
-        console.log('sss');
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [userData.connected]);
+  
 
   const handleClose = () => {
     resetUser();
@@ -89,7 +84,7 @@ function Host() {
 
   const handleAnswer = async (questionId) => {
     let response = await fetch(
-      `https://88.245.19.100:443/api/questions/set-answer/${questionId}`
+      `http://localhost:8080/api/questions/set-answer/${questionId}`
     );
   };
 
@@ -104,7 +99,7 @@ function Host() {
       </Head>
       <div className="flex absolute right-5 top-5 items-center gap-4 justify-center">
         <span className="">
-          <Back />
+          <Back routePath='/' />
         </span>
         <span
           onClick={handleClose}

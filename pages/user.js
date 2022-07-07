@@ -32,14 +32,14 @@ function User() {
 
   const connect = async () => {
     let response = await fetch(
-      `https://88.245.19.100:443/api/rooms/get-room-by-id/${userData.roomId}` /*  `${
+      `http://localhost:8080/api/rooms/get-room-by-id/${userData.roomId}` /*  `${
         process.env.PROJECT_URL || 'http://localhost:8080'
       }/api/rooms/get-room-by-id/${userData.roomId}`    */
     );
     let data = await response.json();
     if (response.status === 200) {
       let addParticipantResponse = await fetch(
-        `https://88.245.19.100:443/api/participants/add-participant`, //        `http://${process.env.PROJECT_URL}/api/participants/add-participant`,
+        `http://localhost:8080/api/participants/add-participant`, //        `http://${process.env.PROJECT_URL}/api/participants/add-participant`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ function User() {
       };
 
       let response = await fetch(
-        `https://88.245.19.100:443/api/questions/addMessage/${userData.roomId}`,
+        `http://localhost:8080/api/questions/addMessage/${userData.roomId}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -96,7 +96,7 @@ function User() {
 
   const fetchData = async () => {
     let response = await fetch(
-      `https://88.245.19.100:443/api/questions/get-questions-by-room-id/${userData.roomId}` //http://${process.env.PROJECT_URL}/api/questions/get-questions-by-room-id/${userData.roomId}
+      `http://localhost:8080/api/questions/get-questions-by-room-id/${userData.roomId}` //http://${process.env.PROJECT_URL}/api/questions/get-questions-by-room-id/${userData.roomId}
     );
     let data = await response.json();
     setQuestions(data);
@@ -110,18 +110,9 @@ function User() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [userData.connected]);
+  });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (userData.connected) {
-        fetchData();
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+ 
   const handleCopy = () => {
     setShowCopyMessage(true);
     navigator.clipboard.writeText(userData.roomId);
@@ -140,10 +131,9 @@ function User() {
     // console.log('participant',participantId);
     //console.log('question',questionId)
     let response = await fetch(
-      `https://88.245.19.100:443/api/questions/vote-question/${userData.participantId}/${questionId}`
+      `http://localhost:8080/api/questions/vote-question/${userData.participantId}/${questionId}`
     );
     let data = await response.json();
-    console.log(data);
   };
 
   // const handleLikeColor = (votedUsers) => {
@@ -166,7 +156,7 @@ function User() {
       </Head>
       <div className="flex absolute right-5 top-5 items-center gap-4 justify-center">
         <span className="">
-          <Back />
+          <Back routePath='/' />
         </span>
         <span
           onClick={handleClose}
@@ -221,7 +211,7 @@ function User() {
         </div>
       ) : (
         <div className="h-screen overflow-x-hidden  ">
-          <div className="items-center justify-center flex flex-col sm:gap-2 md:gap-3 lg:gap-8 overflow-hidden">
+          <div className="items-center justify-center flex flex-col sm:gap-2 md:gap-3 lg:gap-8 overflow-hidden pt-5">
             <p className="sm:text-sm md:text-2xl lg:text-4xl tracking-wider text-white  animate-pulse transition-all ease-out duration-500 hover:scale-90">
               Welcome, {userData?.name}
             </p>
@@ -257,16 +247,16 @@ function User() {
                   </span>
                 )}
               </div>
-              {/* <button
+              <button
                 onClick={() => router.push(`/user/${userData.participantId}`)}
                 className="text-black sm:p-[2px] lg:p-2 rounded-md bg-orange-400 transition-all ease-in-out duration-500 hover:bg-amber-700 hover:text-white"
               >
                 My Feedbacks
-              </button> */}
+              </button>
             </div>
           </div>
 
-          <div className="text-white sm:px-2 md:px-4 lg:px-10 pb-12  sm:border-none md:border-4 border-yellow-700 w-screen flex flex-col overflow-y-auto overflow-x-hidden ">
+          <div className="text-white sm:px-2 md:px-4 lg:px-10   w-screen flex flex-col overflow-y-auto overflow-x-hidden  ">
             {questions?.map((question, i) => (
               <Fade key={i}>
                 <span> {console.log(question)}</span>
@@ -309,7 +299,7 @@ function User() {
             onChange={(e) => setTextMessage(e.target.value)}
             onKeyDown={(e) => handleSendMessage(e)}
             placeholder="Enter your message"
-            className="w-[98%] centerIt p-1  bottom-0 rounded-md hover:border-none focus:border-none "
+            className="w-[98%] p-1 centerIt   bottom-0 rounded-md hover:border-none focus:border-none "
           />
         </div>
       )}

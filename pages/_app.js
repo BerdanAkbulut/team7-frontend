@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import { RecoilRoot } from 'recoil';
-import { Suspense } from 'react';
 
 function MyApp({ Component, pageProps }) {
   return (
